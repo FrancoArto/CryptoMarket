@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CryptocurrencyComponent implements OnInit {
 
-  currency: Currency
+  private currency: Currency
 
   constructor(
     private route: ActivatedRoute,

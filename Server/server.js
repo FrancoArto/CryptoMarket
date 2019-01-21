@@ -49,6 +49,12 @@ app.get('/cryptocurrencies/:symbol', function (req, res) {
 
 })
 
+app.get('/global-data', function (req, res) {
+  coinmarketcap.getGlobalData((globalData) => {
+    res.send(globalData);
+  });
+})
+
 
 
 

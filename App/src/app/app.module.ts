@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { CryptocurrenciesComponent } from './cryptocurrencies/cryptocurrencies.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CryptocurrencyComponent } from './cryptocurrency/cryptocurrency.component';
+import { GlobalDataComponent } from './global-data/global-data.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CryptocurrenciesComponent,
-    CryptocurrencyComponent
+    CryptocurrencyComponent,
+    GlobalDataComponent
   ],
   imports: [
     BrowserModule,
