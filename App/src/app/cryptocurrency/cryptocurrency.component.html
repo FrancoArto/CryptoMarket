@@ -1,0 +1,11 @@
+<div *ngIf="currency">
+  <h1>{{currency.name}}</h1>
+
+  <ul>
+    <li>Price: $ {{currency.price}}</li>
+    <li>Market cap: ${{currency.marketCap}}</li>
+    <li>Volume (24h): $ {{currency.volume24h}}</li>
+    <li>Circulating supply: $ {{currency.circulatingSupply}}</li>
+    <li>Max supply: $ {{currency.maxSupply}}</li>
+  </ul>
+</div>

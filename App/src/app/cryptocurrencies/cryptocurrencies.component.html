@@ -1,0 +1,20 @@
+<table border="1">
+  <thead>
+    <th>#</th>
+    <th>Name</th>
+    <th>Market Cap</th>
+    <th>Price</th>
+    <th>Volume (24h)</th>
+    <th>Circulating Supply</th>
+    <th>Change (24h)</th>
+  </thead>
+  <tr *ngFor="let currency of currencies">
+    <td>{{currency.rank}}</td>
+    <td><a [routerLink]="[ '/currency', currency.symbol ]">{{currency.name}}</a> ({{currency.symbol}})</td>
+    <td>$ {{currency.marketCap}}</td>
+    <td>$ {{currency.price}}</td>
+    <td>$ {{currency.volume24h}}</td>
+    <td>$ {{currency.circulatingSupply}}</td>
+    <td>{{currency.change24h}}%</td>
+  </tr>
+</table>
