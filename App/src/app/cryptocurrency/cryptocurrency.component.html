@@ -1,12 +1,15 @@
-<div class="router-components-container" *ngIf="currency">
-  <h1>{{currency.name}}</h1>
+<mat-spinner *ngIf="loading" color="accent"></mat-spinner>
+<div class="router-components-container" *ngIf="!loading">
+  
 
-  <ul>
-    <li><strong>Price:</strong> $ {{currency.price | number: fractionSize}}</li>
-    <li><strong>Market cap:</strong> ${{currency.marketCap | number: fractionSize}}</li>
-    <li><strong>Volume (24h):</strong> $ {{currency.volume24h | number: fractionSize}}</li>
-    <li><strong>Circulating supply:</strong> $ {{currency.circulatingSupply | number: fractionSize}}</li>
-    <li><strong>Max supply:</strong> $ {{currency.maxSupply | number: fractionSize}}</li>
-  </ul>
-  <button class="go-back" (click)="goBack()">Go Back</button>
+    <h1>{{currency.name}}</h1>
+
+    <ul>
+      <li><strong>Price:</strong> $ {{currency.price | number: fractionSize}}</li>
+      <li><strong>Market cap:</strong> ${{currency.marketCap | number: fractionSize}}</li>
+      <li><strong>Volume (24h):</strong> $ {{currency.volume24h | number: fractionSize}}</li>
+      <li><strong>Circulating supply:</strong> $ {{currency.circulatingSupply | number: fractionSize}}</li>
+      <li><strong>Max supply:</strong> $ {{currency.maxSupply | number: fractionSize}}</li>
+    </ul>
+    <button class="go-back" (click)="goBack()">Go Back</button>
 </div>

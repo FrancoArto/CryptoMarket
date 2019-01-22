@@ -10,15 +10,20 @@ import { Currency } from '../Currency';
 export class CryptocurrenciesComponent implements OnInit {
 
   currencies: Currency[];
+  private loading: boolean
 
   constructor(private cryptoCurrenciesService: CryptocurrenciesService) { }
 
   getTop100(): void {
     this.cryptoCurrenciesService.getTop100()
-      .subscribe(currencies => this.currencies = currencies)
+      .subscribe(currencies => {
+        this.currencies = currencies
+        this.loading = false
+      })
   }
 
   ngOnInit() {
+    this.loading = true
     this.getTop100();
   }
 

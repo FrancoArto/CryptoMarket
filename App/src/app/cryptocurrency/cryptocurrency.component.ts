@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 export class CryptocurrencyComponent implements OnInit {
 
   private currency: Currency
+  private loading: boolean
 
   constructor(
     private route: ActivatedRoute,
@@ -19,13 +20,17 @@ export class CryptocurrencyComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit() {
+    this.loading = true
     this.getCurrencyDetails();
   }
 
   getCurrencyDetails() {
     const symbol = this.route.snapshot.paramMap.get('symbol')
     return this.cryptocurrenciesService.getCurrencyDetails(symbol)
-      .subscribe(currency => this.currency = currency)
+      .subscribe(currency => {
+        this.currency = currency
+        this.loading = false
+      })
   }
 
   goBack() {
