@@ -45,6 +45,11 @@ export class Currency {
     this.marketCap = marketCap;
   }
 
+
+  public getChange24h() {
+    return this.change24h;
+  }
+
 }
 
 @Injectable({

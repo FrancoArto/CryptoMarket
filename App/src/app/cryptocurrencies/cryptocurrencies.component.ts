@@ -5,7 +5,7 @@ import { Currency } from '../Currency';
 @Component({
   selector: 'app-cryptocurrencies',
   templateUrl: './cryptocurrencies.component.html',
-  styleUrls: ['./cryptocurrencies.component.css']
+  styleUrls: ['./cryptocurrencies.component.sass']
 })
 export class CryptocurrenciesComponent implements OnInit {
 
@@ -21,5 +21,7 @@ export class CryptocurrenciesComponent implements OnInit {
   ngOnInit() {
     this.getTop100();
   }
+
+  
 
 }

@@ -5,7 +5,7 @@ import { GlobalDataService } from '../global-data.service';
 @Component({
   selector: 'app-global-data',
   templateUrl: './global-data.component.html',
-  styleUrls: ['./global-data.component.css']
+  styleUrls: ['./global-data.component.sass']
 })
 export class GlobalDataComponent implements OnInit {
 
