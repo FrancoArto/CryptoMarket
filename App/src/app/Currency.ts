@@ -50,6 +50,10 @@ export class Currency {
     return this.change24h;
   }
 
+  public getName() {
+    return this.name;
+  }
+
 }
 
 @Injectable({
