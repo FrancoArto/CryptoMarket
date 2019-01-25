@@ -1,7 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CryptocurrenciesService } from '../cryptocurrencies.service';
 import { Currency } from '../Currency';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import * as CryptocurrencyActions from '../store/cryptocurrency/cryptocurrency.actions'
+import { CryptocurrencyState } from '../store/cryptocurrency/cryptocurrency.reducer';
 
 @Component({
   selector: 'app-cryptocurrencies',
@@ -10,45 +13,35 @@ import { Subject } from 'rxjs';
 })
 export class CryptocurrenciesComponent implements OnInit {
 
-  currencies: Currency[];
+  currencies$: Observable<Currency[]>
+  loading$: Observable<boolean>
   currenciesBackup: Currency[];
-  private loading: boolean
 
-  constructor(private cryptoCurrenciesService: CryptocurrenciesService) { }
+  constructor(private cryptoCurrenciesService: CryptocurrenciesService,
+    private store: Store<CryptocurrencyState>) { }
 
   getTop100(): void {
-    this.cryptoCurrenciesService.getTop100()
-      .subscribe(currencies => {
-        this.currencies = currencies
-        this.loading = false
-        this.currenciesBackup = this.currencies;
-      })
+      this.store.dispatch(new CryptocurrencyActions.CurrenciesRequest)
   }
 
   searchCurrencies(terms: string):void {
     let resultArray: Currency[] = this.currenciesBackup.filter((element) => {
       return element.getName().includes(terms)
     })
-    
-    this.currencies = resultArray
-
-    if (!terms) {
-      this.currencies = this.currenciesBackup
-    }
   }
 
   
 
 
   ngOnInit() {
-    this.loading = true
     this.getTop100();
+    this.loading$ = this.store.pipe(select(state => state.cryptocurrencyReducer.loading))
     this.cryptoCurrenciesService.eventSearch.subscribe(
       value => {
         this.searchCurrencies(value.searchInput);
       }
-    )
-    
+    )  
+    this.currencies$ = this.store.pipe(select(state => state.cryptocurrencyReducer.cryptocurrencies))    
   }
 
   

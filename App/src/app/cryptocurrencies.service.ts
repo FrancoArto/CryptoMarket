@@ -22,16 +22,16 @@ export class CryptocurrenciesService {
     private currencyAdapter: CurrencyAdapter
   ) { }
 
-  getTop100(): Observable<Currency[]> {
+  getTop100(): any {
     return this.http.get<Currency[]>(`${this.currenciesUrl}/latest`)
       .pipe(
         map((data: any[]) => data.map((item: any) => this.currencyAdapter.adapt(item))),
         catchError(this.handleError<Currency[]>('getTop100', []))
-      )
+      )      
   }
 
 
-  getCurrencyDetails(symbol: string): Observable<Currency> {
+  getCurrencyDetails(symbol: string): any {
     return this.http.get<Currency>(`${this.currenciesUrl}/${symbol}`)
       .pipe(
         map(item => this.currencyAdapter.adapt(item)),
