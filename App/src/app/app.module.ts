@@ -15,6 +15,8 @@ import { cryptocurrencyReducer } from './store/cryptocurrency/cryptocurrency.red
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { EffectsModule } from '@ngrx/effects';
 import { CryptocurrencyEffects } from './store/cryptocurrency/cryptocurrency.effects';
+import { GlobalDataEffects } from './store/global-data/global-data.effects';
+import { globalDataReducer } from './store/global-data/global-data.reducer';
 
 @NgModule({
   declarations: [
@@ -30,11 +32,12 @@ import { CryptocurrencyEffects } from './store/cryptocurrency/cryptocurrency.eff
     HttpClientModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
-    [StoreModule.forRoot({cryptocurrencyReducer: cryptocurrencyReducer})],
+    [StoreModule.forRoot({cryptocurrencyReducer: cryptocurrencyReducer,
+      globalDataReducer: globalDataReducer})],
     StoreDevtoolsModule.instrument({
       maxAge: 25
     }),
-    EffectsModule.forRoot([CryptocurrencyEffects])
+    EffectsModule.forRoot([CryptocurrencyEffects, GlobalDataEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
