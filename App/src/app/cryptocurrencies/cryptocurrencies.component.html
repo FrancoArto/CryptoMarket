@@ -1,25 +1,27 @@
+<mat-spinner *ngIf="loading$ | async else scrollable" color="accent"></mat-spinner>
 <div class="router-components-container">
-  <mat-spinner *ngIf="loading" color="accent"></mat-spinner>
-  <div class="scrollable" *ngIf="!loading">
-    <table>
-      <thead>
-        <th>#</th>
-        <th>Name</th>
-        <th>Market Cap</th>
-        <th>Price</th>
-        <th>Volume (24h)</th>
-        <th>Circulating Supply</th>
-        <th>Change (24h)</th>
-      </thead>
-      <tr *ngFor="let currency of currencies">
-        <td>{{currency.rank}}</td>
-        <td><a [routerLink]="[ '/currency', currency.symbol ]">{{currency.name}}</a> ({{currency.symbol}})</td>
-        <td>$ {{currency.marketCap | number: fractionSize}}</td>
-        <td>$ {{currency.price| number: fractionSize}}</td>
-        <td>$ {{currency.volume24h | number: fractionSize}}</td>
-        <td>$ {{currency.circulatingSupply | number: fractionSize}}</td>
-        <td>{{currency.change24h | number: fractionSize}}%</td>
-      </tr>
-    </table>
-  </div>
+  <ng-template #scrollable>
+    <div class="scrollable">
+      <table>
+        <thead>
+          <th>#</th>
+          <th>Name</th>
+          <th>Market Cap</th>
+          <th>Price</th>
+          <th>Volume (24h)</th>
+          <th>Circulating Supply</th>
+          <th>Change (24h)</th>
+        </thead>
+        <tr *ngFor="let currency of currencies$ | async">
+          <td>{{currency.rank}}</td>
+          <td><a [routerLink]="[ '/currency', currency.symbol ]">{{currency.name}}</a> ({{currency.symbol}})</td>
+          <td>$ {{currency.marketCap | number: fractionSize}}</td>
+          <td>$ {{currency.price| number: fractionSize}}</td>
+          <td>$ {{currency.volume24h | number: fractionSize}}</td>
+          <td>$ {{currency.circulatingSupply | number: fractionSize}}</td>
+          <td>{{currency.change24h | number: fractionSize}}%</td>
+        </tr>
+      </table>
+    </div>
+  </ng-template>
 </div>

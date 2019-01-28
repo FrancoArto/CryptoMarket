@@ -1,8 +1,10 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject, from } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Currency, CurrencyAdapter } from './Currency';
 import { HttpClient } from '@angular/common/http'
+import { Store, select } from '@ngrx/store';
+import { CryptocurrencyState } from './store/cryptocurrency/cryptocurrency.reducer';
 
 
 @Injectable({
@@ -10,28 +12,25 @@ import { HttpClient } from '@angular/common/http'
 })
 export class CryptocurrenciesService {
 
-
-  @Output() eventSearch = new EventEmitter<Event>();
-
-
   private currenciesUrl = 'http://localhost:8080/cryptocurrencies'
-  private searchTerms = new Subject<string>();
 
   constructor(
     private http: HttpClient,
-    private currencyAdapter: CurrencyAdapter
+    private currencyAdapter: CurrencyAdapter,
+    private store: Store<CryptocurrencyState>
   ) { }
 
-  getTop100(): Observable<Currency[]> {
+  getTop100(): any {
     return this.http.get<Currency[]>(`${this.currenciesUrl}/latest`)
       .pipe(
         map((data: any[]) => data.map((item: any) => this.currencyAdapter.adapt(item))),
         catchError(this.handleError<Currency[]>('getTop100', []))
-      )
+      )      
   }
 
 
-  getCurrencyDetails(symbol: string): Observable<Currency> {
+  getCurrencyDetails(symbol: string): any {
+    console.log(symbol)
     return this.http.get<Currency>(`${this.currenciesUrl}/${symbol}`)
       .pipe(
         map(item => this.currencyAdapter.adapt(item)),
@@ -39,17 +38,7 @@ export class CryptocurrenciesService {
       )
   }
 
-  setTerms(terms: string): void {
-    this.searchTerms.next(terms);
-  }
 
-  getTerms(): Subject<string> {
-    return this.searchTerms
-  }
-
-  setSearchKeyword(keyword: Event): void {
-    this.eventSearch.emit(keyword)
-  }
 
   /**
  * Handle Http operation that failed.

@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { CryptocurrenciesService } from '../cryptocurrencies.service';
 import { Router } from '@angular/router';
+import { CryptocurrencyState } from '../store/cryptocurrency/cryptocurrency.reducer';
+import * as CryptocurrencyActions from '../store/cryptocurrency/cryptocurrency.actions'
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-search',
@@ -13,23 +16,20 @@ export class SearchComponent {
 
   constructor(
     private cryptocurrenciesService: CryptocurrenciesService,
-    private router: Router) { }
+    private router: Router,
+    private store: Store<CryptocurrencyState>) { }
 
-  pushSearchTerms(terms: string) {
-    this.cryptocurrenciesService.setTerms(terms);
-  }
+  
 
   search = new FormGroup({
     searchInput: new FormControl('', [Validators.required, Validators.maxLength(20)])
   })
   
   searchCurrency(): void {
-    this.cryptocurrenciesService.setSearchKeyword(this.search.value)
-    this.router.navigate(['/currencies'])
-
+    this.store.dispatch(new CryptocurrencyActions.SearchCurrencies({searchText: this.search.value.searchInput}))
   }
 
   reset(): void {
-    this.cryptocurrenciesService.setSearchKeyword(new Event(''))
+    this.store.dispatch(new CryptocurrencyActions.SearchCurrencies({searchText: ''}))
   }
 }

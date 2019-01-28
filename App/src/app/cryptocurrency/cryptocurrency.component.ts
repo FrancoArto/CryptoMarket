@@ -3,6 +3,13 @@ import { Currency } from '../Currency';
 import { CryptocurrenciesService } from '../cryptocurrencies.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { CryptocurrencyState } from '../store/cryptocurrency/cryptocurrency.reducer';
+import * as CryptocurrencyActions from '../store/cryptocurrency/cryptocurrency.actions'
+import { store } from '@angular/core/src/render3';
+import { AppState } from '../store/AppState';
+
 
 @Component({
   selector: 'app-cryptocurrency',
@@ -11,26 +18,25 @@ import { Location } from '@angular/common';
 })
 export class CryptocurrencyComponent implements OnInit {
 
+  private currency$: Observable<Currency>
   private currency: Currency
-  private loading: boolean
+  private loading$: Observable<boolean>
 
   constructor(
     private route: ActivatedRoute,
-    private cryptocurrenciesService: CryptocurrenciesService,
-    private location: Location) { }
+    private location: Location,
+    private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.loading = true
     this.getCurrencyDetails();
+    this.loading$ = this.store.pipe(select(state => state.cryptocurrencyReducer.loading))
+    this.currency$ = this.store.pipe(select(state => state.cryptocurrencyReducer.cryptocurrency))
+    this.currency$.subscribe(data => this.currency = data)
   }
 
   getCurrencyDetails() {
     const symbol = this.route.snapshot.paramMap.get('symbol')
-    return this.cryptocurrenciesService.getCurrencyDetails(symbol)
-      .subscribe(currency => {
-        this.currency = currency
-        this.loading = false
-      })
+    this.store.dispatch(new CryptocurrencyActions.CurrencyRequest({symbol: symbol}))
   }
 
   goBack() {
