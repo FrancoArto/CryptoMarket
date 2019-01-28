@@ -6,7 +6,8 @@ export interface CryptocurrencyState {
   cryptocurrencies: Currency[],
   error: Error,
   loading: boolean,
-  symbol: string
+  symbol: string,
+  searchText: string,
 }
 
 export const cryptocurrencyInitialState:CryptocurrencyState = {
@@ -14,7 +15,8 @@ export const cryptocurrencyInitialState:CryptocurrencyState = {
   cryptocurrencies: [],
   error: null,
   loading: false,
-  symbol: ''
+  symbol: '',
+  searchText: '',
 }
 
 export function cryptocurrencyReducer(
@@ -34,7 +36,7 @@ export function cryptocurrencyReducer(
       return {
         ...state,
         loading: false,
-        cryptocurrency: action.payload.currency
+        cryptocurrency: action.payload.currency,
       };
     }
  
@@ -71,6 +73,13 @@ export function cryptocurrencyReducer(
         cryptocurrency: null,
         cryptocurrencies: []
       }
+    }
+
+    case Cryptocurrency.ActionTypes.SearchCurrencies: {
+      return {
+        ...state,
+        searchText: action.payload.searchText
+      };
     }
  
     default: {

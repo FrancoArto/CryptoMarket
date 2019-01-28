@@ -7,7 +7,8 @@ export enum ActionTypes {
   CurrencyFailure = '[Cryptocurrency] Failure',
   CurrenciesRequest = '[Cryptocurrency] Top100 Request',
   CurrenciesSuccess = '[Cryptocurrency] Top100 Success',
-  CurrenciesFailure = '[Cryptocurrency] Top100 Failure'
+  CurrenciesFailure = '[Cryptocurrency] Top100 Failure',
+  SearchCurrencies = '[Cryptocurrency] Search Request',
 }
 
 export class CurrencyRequest implements Action {
@@ -56,4 +57,12 @@ export class CurrenciesFailure implements Action {
     }) { }
 }
 
-export type ActionsUnion = CurrencyRequest | CurrencySuccess | CurrencyFailure | CurrenciesRequest | CurrenciesSuccess | CurrenciesFailure
+export class SearchCurrencies implements Action {
+  readonly type = ActionTypes.SearchCurrencies;
+  constructor(
+    public payload: {
+      searchText: string
+    }) { }
+}
+
+export type ActionsUnion = CurrencyRequest | CurrencySuccess | CurrencyFailure | CurrenciesRequest | CurrenciesSuccess | CurrenciesFailure | SearchCurrencies

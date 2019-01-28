@@ -1,8 +1,11 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject, from } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Currency, CurrencyAdapter } from './Currency';
 import { HttpClient } from '@angular/common/http'
+import { Store, select } from '@ngrx/store';
+import { CryptocurrencyState } from './store/cryptocurrency/cryptocurrency.reducer';
+import { selectSearchResults, getSearchResults } from './store/cryptocurrency/cryptocurrency.selectors';
 
 
 @Injectable({
@@ -10,16 +13,12 @@ import { HttpClient } from '@angular/common/http'
 })
 export class CryptocurrenciesService {
 
-
-  @Output() eventSearch = new EventEmitter<Event>();
-
-
   private currenciesUrl = 'http://localhost:8080/cryptocurrencies'
-  private searchTerms = new Subject<string>();
 
   constructor(
     private http: HttpClient,
-    private currencyAdapter: CurrencyAdapter
+    private currencyAdapter: CurrencyAdapter,
+    private store: Store<CryptocurrencyState>
   ) { }
 
   getTop100(): any {
@@ -39,17 +38,7 @@ export class CryptocurrenciesService {
       )
   }
 
-  setTerms(terms: string): void {
-    this.searchTerms.next(terms);
-  }
 
-  getTerms(): Subject<string> {
-    return this.searchTerms
-  }
-
-  setSearchKeyword(keyword: Event): void {
-    this.eventSearch.emit(keyword)
-  }
 
   /**
  * Handle Http operation that failed.

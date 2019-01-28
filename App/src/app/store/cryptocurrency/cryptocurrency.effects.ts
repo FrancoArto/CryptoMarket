@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, mergeMap, catchError } from 'rxjs/operators';
+import { map, mergeMap, catchError, withLatestFrom } from 'rxjs/operators';
 import { CryptocurrenciesService } from 'src/app/cryptocurrencies.service';
 import * as CurrencyActions from './cryptocurrency.actions'
+import { Store } from '@ngrx/store';
+import { CryptocurrencyState } from './cryptocurrency.reducer';
+import { getSearchResults } from './cryptocurrency.selectors';
 
 @Injectable()
 export class CryptocurrencyEffects {
@@ -33,9 +36,10 @@ export class CryptocurrencyEffects {
         )
       )
     );
- 
+
   constructor(
-        private actions$: Actions,
-        private cryptocurrenciesService: CryptocurrenciesService
-      ) {}
+    private actions$: Actions,
+    private cryptocurrenciesService: CryptocurrenciesService,
+    private store: Store<CryptocurrencyState>
+  ) { }
 }
