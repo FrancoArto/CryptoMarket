@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Currency } from '../Currency';
-import { CryptocurrenciesService } from '../cryptocurrencies.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { CryptocurrencyState } from '../store/cryptocurrency/cryptocurrency.reducer';
 import * as CryptocurrencyActions from '../store/cryptocurrency/cryptocurrency.actions'
-import { store } from '@angular/core/src/render3';
 import { AppState } from '../store/AppState';
 
 

@@ -5,8 +5,7 @@ import { map, mergeMap, catchError, withLatestFrom } from 'rxjs/operators';
 import { CryptocurrenciesService } from 'src/app/cryptocurrencies.service';
 import * as CurrencyActions from './cryptocurrency.actions'
 import { Store } from '@ngrx/store';
-import { CryptocurrencyState } from './cryptocurrency.reducer';
-import { getSearchResults, getSymbol } from './cryptocurrency.selectors';
+import { getSymbol } from './cryptocurrency.selectors';
 import { Currency } from 'src/app/Currency';
 import { AppState } from '../AppState';
 

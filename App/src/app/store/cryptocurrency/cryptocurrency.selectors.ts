@@ -1,4 +1,4 @@
-import { createSelector, ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+import { createSelector} from '@ngrx/store';
 import { Currency } from 'src/app/Currency';
 
 import * as fromCryptocurrencies from './cryptocurrency.reducer'

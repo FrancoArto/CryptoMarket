@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { CryptocurrenciesService } from '../cryptocurrencies.service';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CryptocurrencyState } from '../store/cryptocurrency/cryptocurrency.reducer';
 import * as CryptocurrencyActions from '../store/cryptocurrency/cryptocurrency.actions'
@@ -15,7 +14,6 @@ export class SearchComponent {
 
 
   constructor(
-    private cryptocurrenciesService: CryptocurrenciesService,
     private router: Router,
     private store: Store<CryptocurrencyState>) { }
 

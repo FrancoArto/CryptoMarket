@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalData } from '../GlobalData';
 import { GlobalDataService } from '../global-data.service';
 import { Store, select } from '@ngrx/store';
-import { GlobalDataState } from '../store/global-data/global-data.reducer';
 import * as GlobalDataActions from '../store/global-data/global-data.actions'
 import { Observable } from 'rxjs';
 import { AppState } from '../store/AppState';
@@ -18,7 +17,6 @@ export class GlobalDataComponent implements OnInit {
   private globalData: GlobalData;
 
   constructor(
-    private globalDataService: GlobalDataService,
     private store: Store<AppState>
   ) { }
 

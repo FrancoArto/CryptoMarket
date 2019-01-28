@@ -1,10 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CryptocurrenciesService } from '../cryptocurrencies.service';
+import { Component, OnInit } from '@angular/core';
 import { Currency } from '../Currency';
-import { Subject, Observable } from 'rxjs';
+import {  Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import * as CryptocurrencyActions from '../store/cryptocurrency/cryptocurrency.actions'
-import { CryptocurrencyState } from '../store/cryptocurrency/cryptocurrency.reducer';
 import { getSearchResults } from '../store/cryptocurrency/cryptocurrency.selectors';
 import { AppState } from '../store/AppState';
 
