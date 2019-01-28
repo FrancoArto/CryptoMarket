@@ -8,6 +8,7 @@ import { Store, select } from '@ngrx/store';
 import { CryptocurrencyState } from '../store/cryptocurrency/cryptocurrency.reducer';
 import * as CryptocurrencyActions from '../store/cryptocurrency/cryptocurrency.actions'
 import { store } from '@angular/core/src/render3';
+import { AppState } from '../store/AppState';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class CryptocurrencyComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private store: Store<CryptocurrencyState>) { }
+    private store: Store<AppState>) { }
 
   ngOnInit() {
     this.getCurrencyDetails();

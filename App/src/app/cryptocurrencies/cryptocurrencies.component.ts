@@ -6,6 +6,7 @@ import { Store, select } from '@ngrx/store';
 import * as CryptocurrencyActions from '../store/cryptocurrency/cryptocurrency.actions'
 import { CryptocurrencyState } from '../store/cryptocurrency/cryptocurrency.reducer';
 import { getSearchResults } from '../store/cryptocurrency/cryptocurrency.selectors';
+import { AppState } from '../store/AppState';
 
 @Component({
   selector: 'app-cryptocurrencies',
@@ -19,7 +20,7 @@ export class CryptocurrenciesComponent implements OnInit {
   currenciesBackup: Currency[];
 
   constructor(
-    private store: Store<CryptocurrencyState>) { }
+    private store: Store<AppState>) { }
 
   getTop100(): void {
     this.store.dispatch(new CryptocurrencyActions.CurrenciesRequest)

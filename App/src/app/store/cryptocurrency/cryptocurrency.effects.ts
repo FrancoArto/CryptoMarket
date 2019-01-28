@@ -6,7 +6,9 @@ import { CryptocurrenciesService } from 'src/app/cryptocurrencies.service';
 import * as CurrencyActions from './cryptocurrency.actions'
 import { Store } from '@ngrx/store';
 import { CryptocurrencyState } from './cryptocurrency.reducer';
-import { getSearchResults } from './cryptocurrency.selectors';
+import { getSearchResults, getSymbol } from './cryptocurrency.selectors';
+import { Currency } from 'src/app/Currency';
+import { AppState } from '../AppState';
 
 @Injectable()
 export class CryptocurrencyEffects {
@@ -17,7 +19,7 @@ export class CryptocurrencyEffects {
       ofType(CurrencyActions.ActionTypes.CurrenciesRequest),
       mergeMap(() => this.cryptocurrenciesService.getTop100()
         .pipe(
-          map(data => (new CurrencyActions.CurrenciesSuccess({ currencies: data }))),
+          map((data: Currency[]) => (new CurrencyActions.CurrenciesSuccess({ currencies: data }))),
           catchError((error) => of(new CurrencyActions.CurrenciesFailure(error)))
         )
       )
@@ -28,9 +30,10 @@ export class CryptocurrencyEffects {
   requestCurrency$ = this.actions$
     .pipe(
       ofType(CurrencyActions.ActionTypes.CurrencyRequest),
-      mergeMap((action) => this.cryptocurrenciesService.getCurrencyDetails(action.payload.symbol)
+      withLatestFrom(this.store),
+      mergeMap(([action, state]) => this.cryptocurrenciesService.getCurrencyDetails(getSymbol(state.cryptocurrencyReducer))
         .pipe(
-          map(data => (new CurrencyActions.CurrencySuccess({ currency: data }))),
+          map((data: Currency) => (new CurrencyActions.CurrencySuccess({ currency: data }))),
           catchError((error) => of(new CurrencyActions.CurrencyFailure(error)))
 
         )
@@ -40,6 +43,6 @@ export class CryptocurrencyEffects {
   constructor(
     private actions$: Actions,
     private cryptocurrenciesService: CryptocurrenciesService,
-    private store: Store<CryptocurrencyState>
+    private store: Store<AppState>
   ) { }
 }

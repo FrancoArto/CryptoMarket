@@ -5,7 +5,6 @@ import { Currency, CurrencyAdapter } from './Currency';
 import { HttpClient } from '@angular/common/http'
 import { Store, select } from '@ngrx/store';
 import { CryptocurrencyState } from './store/cryptocurrency/cryptocurrency.reducer';
-import { selectSearchResults, getSearchResults } from './store/cryptocurrency/cryptocurrency.selectors';
 
 
 @Injectable({
@@ -31,6 +30,7 @@ export class CryptocurrenciesService {
 
 
   getCurrencyDetails(symbol: string): any {
+    console.log(symbol)
     return this.http.get<Currency>(`${this.currenciesUrl}/${symbol}`)
       .pipe(
         map(item => this.currencyAdapter.adapt(item)),

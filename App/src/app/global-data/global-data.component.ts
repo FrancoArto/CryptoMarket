@@ -5,6 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { GlobalDataState } from '../store/global-data/global-data.reducer';
 import * as GlobalDataActions from '../store/global-data/global-data.actions'
 import { Observable } from 'rxjs';
+import { AppState } from '../store/AppState';
 
 @Component({
   selector: 'app-global-data',
@@ -18,7 +19,7 @@ export class GlobalDataComponent implements OnInit {
 
   constructor(
     private globalDataService: GlobalDataService,
-    private store: Store<GlobalDataState>
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
