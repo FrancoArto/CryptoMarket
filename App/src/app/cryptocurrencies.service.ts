@@ -3,8 +3,6 @@ import { Observable, of, Subject, from } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Currency, CurrencyAdapter } from './Currency';
 import { HttpClient } from '@angular/common/http'
-import { Store, select } from '@ngrx/store';
-import { CryptocurrencyState } from './store/cryptocurrency/cryptocurrency.reducer';
 
 
 @Injectable({
@@ -17,7 +15,6 @@ export class CryptocurrenciesService {
   constructor(
     private http: HttpClient,
     private currencyAdapter: CurrencyAdapter,
-    private store: Store<CryptocurrencyState>
   ) { }
 
   getTop100(): any {
@@ -30,7 +27,6 @@ export class CryptocurrenciesService {
 
 
   getCurrencyDetails(symbol: string): any {
-    console.log(symbol)
     return this.http.get<Currency>(`${this.currenciesUrl}/${symbol}`)
       .pipe(
         map(item => this.currencyAdapter.adapt(item)),

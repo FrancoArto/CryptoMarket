@@ -27,7 +27,7 @@ export class CryptocurrenciesComponent implements OnInit {
   ngOnInit() {
     this.getTop100();
     this.loading$ = this.store.pipe(select(state => state.cryptocurrencyReducer.loading))
-    this.currencies$ = this.store.select(getSearchResults)
+    this.currencies$ = this.store.pipe(select(getSearchResults))
   }
 
 
