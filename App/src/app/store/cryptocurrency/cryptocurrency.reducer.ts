@@ -21,7 +21,7 @@ export const cryptocurrencyInitialState:CryptocurrencyState = {
 
 export function cryptocurrencyReducer(
   state = cryptocurrencyInitialState,
-  action: Cryptocurrency.ActionsUnion
+  action: any
 ): CryptocurrencyState {
   switch (action.type) {
     case Cryptocurrency.ActionTypes.CurrencyRequest: {

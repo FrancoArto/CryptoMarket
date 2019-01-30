@@ -16,7 +16,6 @@ export const getSearchResults = createSelector(getCryptocurrencyState,
     let resultArray: Currency[] = state.cryptocurrencies.filter((element) => {
       return element.getName().includes(state.searchText)
     })
-    console.log(resultArray)
     return resultArray;
   })
 

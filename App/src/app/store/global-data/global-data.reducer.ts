@@ -15,7 +15,7 @@ export const globalDataInitialState:GlobalDataState = {
 
 export function globalDataReducer(
   state = globalDataInitialState,
-  action: GlobalDataActions.ActionsUnion
+  action: any
 ): GlobalDataState {
   switch (action.type) {
     case GlobalDataActions.ActionTypes.GlobalDataRequest: {
