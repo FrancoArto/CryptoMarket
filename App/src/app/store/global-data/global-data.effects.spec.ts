@@ -8,6 +8,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { hot, cold } from 'jasmine-marbles';
 import { GlobalDataService } from 'src/app/global-data.service';
 
+const errorMock = new Error()
 
 describe('Global Data effects', () => {
   let effects: GlobalDataEffects;
@@ -38,6 +39,18 @@ describe('Global Data effects', () => {
  
     expect(effects.requestGlobalData$).toBeObservable(expected);
   });
+
+  it('should catch error', () => {
+    const action = new GlobalDataActions.GlobalDataRequest();
+    const completion = new GlobalDataActions.GlobalDataFailure({error: errorMock});
+ 
+    actions = hot('--a-', { a: action });
+    const response = cold('-#|', {}, {error: errorMock});
+    spyOn(globalDataService, "getGlobalData").and.returnValue(response)
+    const expected = cold('---b', { b: completion });
+ 
+    expect(effects.requestGlobalData$).toBeObservable(expected);
+  })
 
  
 })
