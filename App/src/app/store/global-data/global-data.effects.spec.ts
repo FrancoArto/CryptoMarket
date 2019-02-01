@@ -51,6 +51,5 @@ describe('Global Data effects', () => {
  
     expect(effects.requestGlobalData$).toBeObservable(expected);
   })
-
  
 })

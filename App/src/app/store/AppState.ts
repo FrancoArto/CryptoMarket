@@ -5,3 +5,9 @@ export interface AppState {
   cryptocurrencyReducer: fromCryptocurrencies.CryptocurrencyState,
   globalDataReducer: fromGlobalData.GlobalDataState
 }
+
+
+export const rootReducer = {
+  cryptocurrencyReducer: fromCryptocurrencies.cryptocurrencyReducer,
+  globalDataReducer: fromGlobalData.globalDataReducer
+}
